@@ -21,7 +21,7 @@ function App() {
     <div className="Main">
       <div className="wrapper">
         <div className="inner">
-          <h1 style={{ textAlign: 'center' }}>To-Do List</h1>
+          <h1 style={{ textAlign: 'center' }}>ToDo List</h1>
         </div>
         <AddList
           inputValue={inputValue}

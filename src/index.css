@@ -14,18 +14,33 @@
 }
 
 .wrapper {
-  width: 70%;
+  width: 50%;
   height: 80%;
   background-color: #f7f7ff; 
+  border-bottom-left-radius:10px ;
+  border-bottom-right-radius: 10px;
   
 }
 
 .inner{
   background: rgb(2,0,36);
-  height: 70px;
+  height: 120px;
+  color: #f0f0f0;
   background: linear-gradient(90deg, rgb(95,70,134) 0%, rgb(124, 70, 155) 49%, rgb(81,97,148) 100%);
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius:10px ;
+  border-top-right-radius: 10px;
+
 }
 
+
+.AddList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  top: -15px; 
+  transform: translateY(-50%); 
+
+}
 

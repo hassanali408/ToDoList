@@ -6,17 +6,16 @@ import Button from '@mui/material/Button';
 const AddList = ({inputValue,handleClick,handleChange}) => {
 
 
-
   return (
+    <div className="AddList">
     <Box
       sx={{
         width: '80%',
         height: '100px',
         backgroundColor: 'white',
-        marginLeft: '90px',
         marginTop: '20px',
-        borderTopLeftRadius: '20px',
-        borderTopRightRadius: '20px',
+        borderRadius:"10px",
+        
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -24,7 +23,7 @@ const AddList = ({inputValue,handleClick,handleChange}) => {
           id="standard-basic"
           placeholder="Would you like to Add Something?"
           variant="standard"
-          style={{ width: '400px', marginTop: '10px' }}
+          style={{ width: '350px', marginTop: '10px' }}
           value={inputValue}
           onChange={handleChange}
         />
@@ -39,7 +38,9 @@ const AddList = ({inputValue,handleClick,handleChange}) => {
           Add
         </Button>
       </div>
+      
     </Box>
+    </div>
   );
 };
 
