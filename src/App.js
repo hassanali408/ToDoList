@@ -4,17 +4,17 @@ import './App.css';
 import List from './DisplayList';
 
 function App() {
-  const [inputValue, setInputValue] = useState('');
+  const [addTask, setaddTask] = useState('');
   const [todoList, setTodoList] = useState([]);
 
   const handleChange = (event) => {
-    setInputValue(event.target.value);
+    setaddTask(event.target.value);
   };
-
-  const handleClick = () => {
-    // Add the inputValue to the todoList
-    setTodoList([...todoList, inputValue]);
-    setInputValue(''); // Clear inputValue
+  const handleAddTask = () => {
+    if (addTask.trim() !== '') {
+      setTodoList([...todoList, { task: addTask, status: 'Pending' }]);
+      setaddTask('');
+    }
   };
 
   return (
@@ -24,12 +24,11 @@ function App() {
           <h1 style={{ textAlign: 'center' }}>ToDo List</h1>
         </div>
         <AddList
-          inputValue={inputValue}
-          setInputValue={setInputValue}
+          inputValue={addTask}
           handleChange={handleChange}
-          handleClick={handleClick}
+          handleClick={handleAddTask}
         />
-        <List items={todoList} /> 
+        <List items={addTask} setTodoList={setTodoList} todoList={todoList} />
       </div>
     </div>
   );
