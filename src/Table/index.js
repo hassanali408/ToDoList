@@ -88,6 +88,7 @@ export default function BasicTable({ setTodoList, todoList }) {
       if (isPressed === true) {
         updatedTodoList[selectedEditIndex].status = "Complete";
         settextEnabled(false);
+        setisPressed(false);
       }
       if (taskNameChange.trim() !== '') {
         updatedTodoList[selectedEditIndex].task = taskNameChange;
@@ -122,15 +123,17 @@ export default function BasicTable({ setTodoList, todoList }) {
                   {index}
                 </TableCell>
                 <TableCell align="right" style={tableBodyCell}>{row.task}</TableCell>
-                <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending'? <span style={{backgroundColor:"#DC381F",padding:"3px 6px",borderRadius:'5px',color:'white'}}>Pending</span>: 
-                                          <span style={{backgroundColor:"green",padding:"3px 6px",borderRadius:'5px',color:'white'}}>Complete</span> }
+                <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending' ? <span style={{ backgroundColor: "#DC381F", padding: "3px 6px", borderRadius: '5px', color: 'white' }}>Pending</span> :
+                  <span style={{ backgroundColor: "green", padding: "3px 5px", borderRadius: '5px', color: 'white' }}>Complete</span>}
                 </TableCell>
-                
+
                 <TableCell align="right" style={tableBodyCell}>
-                <FontAwesomeIcon icon={faEdit}  style={{ color: "#2196F3" }} onClick={() => handleOpen(index)} />
+                {row.status==="Pending" ? (<FontAwesomeIcon icon={faEdit} style={{ color: "#2196F3" }} onClick={() => handleOpen(index)} />):(
+                  <FontAwesomeIcon icon={faEdit} style={{ color: "#dddddd" }}/>
+                )}  
                 </TableCell>
                 <TableCell align="right" style={tableBodyCell}>
-                  <FontAwesomeIcon icon={faTrash} style={{ color: "#f50000",marginRight:'20px' }} onClick={() => handleRemove(index)} />
+                  <FontAwesomeIcon icon={faTrash} style={{ color: "#f50000", marginRight: '20px' }} onClick={() => handleRemove(index)} />
                 </TableCell>
               </TableRow>
             ))}
