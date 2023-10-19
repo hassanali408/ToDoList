@@ -9,15 +9,14 @@ import Paper from '@mui/material/Paper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Checkbox from '@mui/material/Checkbox';
-
 import { useState } from 'react';
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-export default function BasicTable({ setTodoList, todoList }) {
+
+export default function BasicTable({ setTodoList, todoList, editTask }) {
   const [isPressed, setisPressed] = useState(false);
-  const [taskNameChange, settaskNameChange] = useState('');
 
+  let count = 1;
 
   function handleRemove(index) {
     const newList = todoList.filter((item, id) => id !== index);
@@ -67,18 +66,6 @@ export default function BasicTable({ setTodoList, todoList }) {
     }
   };
 
-  const statusChange = (index) => {
-    if (index !== null) {
-      const updatedTodoList = [...todoList];
-      if (taskNameChange.trim() !== '') {
-        updatedTodoList[index].task = taskNameChange;
-      }
-      setTodoList(updatedTodoList);
-    }
-    settaskNameChange('');
-    
-  };
-
   return (
     <>
 
@@ -107,7 +94,7 @@ export default function BasicTable({ setTodoList, todoList }) {
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>
-                  {row.status === "Pending" ? (<FontAwesomeIcon icon={faEdit} style={{ color: "#2196F3" }} />) : (
+                  {row.status === "Pending" ? (<FontAwesomeIcon icon={faEdit} style={{ color: "#2196F3" }} onClick={() => editTask(index)} />) : (
                     <FontAwesomeIcon icon={faEdit} style={{ color: "#dddddd" }} />
                   )}
                 </TableCell>
@@ -116,7 +103,7 @@ export default function BasicTable({ setTodoList, todoList }) {
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>
-                  <Checkbox {...label} color="success" value={isPressed} onClick={() => handleCompleteChange(index)} />
+                  <Checkbox color="success" value={isPressed} onClick={() => handleCompleteChange(index)} style={{paddingRight:'20px'}} />
                 </TableCell>
               </TableRow>
             ))}

@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-const AddList = ({ inputValue, handleClick, handleChange }) => {
+const AddList = ({ inputValue, handleClick, handleChange, isEditing }) => {
 
 
   return (
@@ -19,15 +19,17 @@ const AddList = ({ inputValue, handleClick, handleChange }) => {
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <TextField id="standard-basic" placeholder="Would you like to Add Something?" variant="standard"
+          <TextField id="standard-basic" placeholder={isEditing===false ? "Would you like to Add Something?" : "Update the name"} variant="standard"
             style={{ width: '350px', marginTop: '10px' }} value={inputValue} onChange={handleChange}
           />
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Button variant="contained" style={{ backgroundColor: '#ef5350', width: '130px', marginTop: '10px' }}
-            onClick={handleClick}>
-            Add
+          <Button variant="contained"
+            style={{ backgroundColor: isEditing ? '#2196F3' : '#ef5350', width: '130px', marginTop: '10px' }}
+            onClick={handleClick}
+          >
+            {isEditing ? 'Update' : 'Add'}
           </Button>
         </div>
 
