@@ -8,22 +8,14 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+
 import { useState } from 'react';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export default function BasicTable({ setTodoList, todoList }) {
-  const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
   const [isPressed, setisPressed] = useState(false);
-  const [textEnabled, settextEnabled] = useState(false);
-  const [selectedEditIndex, setSelectedEditIndex] = useState(null);
   const [taskNameChange, settaskNameChange] = useState('');
 
 
@@ -31,23 +23,6 @@ export default function BasicTable({ setTodoList, todoList }) {
     const newList = todoList.filter((item, id) => id !== index);
     setTodoList(newList);
   }
-
-  const handleOpen = (index) => {
-    setSelectedEditIndex(index);
-    setOpen(true);
-  };
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
 
   const tableContainerStyle = {
     width: "80%",
@@ -73,32 +48,35 @@ export default function BasicTable({ setTodoList, todoList }) {
     borderBottom: "1px solid #ccc",
   };
 
-  const handleChange = event => {
-    if (event.target.checked) {
-      settextEnabled(true)
-    } else {
-      settextEnabled(false);
-    }
-    setisPressed(current => !current);
-  };
 
-  const statusChange = () => {
-    if (selectedEditIndex !== null) {
+
+  const handleCompleteChange = (index) => {
+    if (index !== null) {
       const updatedTodoList = [...todoList];
-      if (isPressed === true) {
-        updatedTodoList[selectedEditIndex].status = "Complete";
-        settextEnabled(false);
+      if (isPressed === false) {
+        updatedTodoList[index].status = "Complete";
+        setTodoList(updatedTodoList);
+        setisPressed(true);
+      } else {
+        updatedTodoList[index].status = "Pending";
+        setTodoList(updatedTodoList);
         setisPressed(false);
       }
-      if (taskNameChange.trim() !== '') {
-        updatedTodoList[selectedEditIndex].task = taskNameChange;
-      }
-      setTodoList(updatedTodoList);
+
 
     }
+  };
 
+  const statusChange = (index) => {
+    if (index !== null) {
+      const updatedTodoList = [...todoList];
+      if (taskNameChange.trim() !== '') {
+        updatedTodoList[index].task = taskNameChange;
+      }
+      setTodoList(updatedTodoList);
+    }
     settaskNameChange('');
-    handleClose();
+    
   };
 
   return (
@@ -114,13 +92,14 @@ export default function BasicTable({ setTodoList, todoList }) {
               <TableCell align="right" style={tableHeaderCell}>Status</TableCell>
               <TableCell align="right" style={tableHeaderCell}>Edit</TableCell>
               <TableCell align="right" style={tableHeaderCell}>Remove</TableCell>
+              <TableCell align="right" style={tableHeaderCell}>Complete</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {todoList.map((row, index) => (
               <TableRow key={index}>
                 <TableCell component="th" scope="row" style={tableBodyCell}>
-                  {index}
+                  {index + 1}
                 </TableCell>
                 <TableCell align="right" style={tableBodyCell}>{row.task}</TableCell>
                 <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending' ? <span style={{ backgroundColor: "#DC381F", padding: "3px 6px", borderRadius: '5px', color: 'white' }}>Pending</span> :
@@ -128,12 +107,16 @@ export default function BasicTable({ setTodoList, todoList }) {
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>
-                {row.status==="Pending" ? (<FontAwesomeIcon icon={faEdit} style={{ color: "#2196F3" }} onClick={() => handleOpen(index)} />):(
-                  <FontAwesomeIcon icon={faEdit} style={{ color: "#dddddd" }}/>
-                )}  
+                  {row.status === "Pending" ? (<FontAwesomeIcon icon={faEdit} style={{ color: "#2196F3" }} />) : (
+                    <FontAwesomeIcon icon={faEdit} style={{ color: "#dddddd" }} />
+                  )}
                 </TableCell>
                 <TableCell align="right" style={tableBodyCell}>
                   <FontAwesomeIcon icon={faTrash} style={{ color: "#f50000", marginRight: '20px' }} onClick={() => handleRemove(index)} />
+                </TableCell>
+
+                <TableCell align="right" style={tableBodyCell}>
+                  <Checkbox {...label} color="success" value={isPressed} onClick={() => handleCompleteChange(index)} />
                 </TableCell>
               </TableRow>
             ))}
@@ -142,19 +125,7 @@ export default function BasicTable({ setTodoList, todoList }) {
         </Table>
       </TableContainer>
 
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <TextField id="standard-basic" variant="outlined" size="medium" disabled={textEnabled} value={taskNameChange}
-            onChange={(e) => settaskNameChange(e.target.value)} />
-          <Button variant="contained" color="success" style={{ marginLeft: '20px', marginTop: '10px' }} onClick={statusChange}>Update</Button><br></br>
-          <FormControlLabel control={<Checkbox {...label} color="success" value={isPressed} onChange={handleChange} />} label="Complete" />
-        </Box>
-      </Modal>
+
     </>
   );
 }
