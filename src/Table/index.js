@@ -11,7 +11,6 @@ import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Checkbox from '@mui/material/Checkbox';
 
 
-
 export default function BasicTable({ setTodoList, todoList, editTask }) {
 
 
@@ -48,11 +47,11 @@ export default function BasicTable({ setTodoList, todoList, editTask }) {
   const handleCompleteChange = (index) => {
     if (index !== null) {
       const updatedTodoList = [...todoList];
-
       if (updatedTodoList[index].status === "Complete") {
         updatedTodoList[index].status = "Pending";
       } else if (updatedTodoList[index].status === "Pending") {
         updatedTodoList[index].status = "Complete";
+  
       }
 
       setTodoList(updatedTodoList);

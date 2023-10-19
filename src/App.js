@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddList from './AddList';
 import './App.css';
 import List from './DisplayList';
+import CompleteList from './CompleteList';
 
 function App() {
   const [addTask, setaddTask] = useState('');
@@ -30,10 +31,11 @@ function App() {
   function editTask(index) {
     setIsEditing(true);
     setEditIndex(index);
- 
+    setaddTask(todoList[index].task); 
   };
 
   return (
+    <div style={{display:'flex',flexDirection:'row', backgroundColor:'#f0f0f0'}}>
     <div className="Main">
       <div className="wrapper">
         <div className="inner">
@@ -46,6 +48,16 @@ function App() {
           isEditing={isEditing}
         />
         <List items={addTask} setTodoList={setTodoList} todoList={todoList} editTask={editTask} />
+
+        
+      </div>
+   
+    </div>
+    <div className="right" style={{ marginLeft: '20px' }}>
+        <div className="inner">
+          <h1 style={{ textAlign: 'center' }}>Completed List</h1>
+        </div>
+        <CompleteList todoList={todoList}/>
       </div>
     </div>
   );
