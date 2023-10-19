@@ -11,7 +11,7 @@ const AddList = ({ inputValue, handleClick, handleChange, isEditing }) => {
       <Box
         sx={{
           width: '80%',
-          height: '100px',
+          height: '110px',
           backgroundColor: 'white',
           marginTop: '20px',
           borderRadius: "10px",
@@ -26,7 +26,7 @@ const AddList = ({ inputValue, handleClick, handleChange, isEditing }) => {
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Button variant="contained"
-            style={{ backgroundColor: isEditing ? '#2196F3' : '#ef5350', width: '130px', marginTop: '10px' }}
+            style={{ backgroundColor: isEditing ? '#2196F3' : '#ef5350', width: '12vw',height:"6vh", marginTop: '10px' }}
             onClick={handleClick}
           >
             {isEditing ? 'Update' : 'Add'}

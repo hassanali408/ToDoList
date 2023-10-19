@@ -9,14 +9,11 @@ import Paper from '@mui/material/Paper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Checkbox from '@mui/material/Checkbox';
-import { useState } from 'react';
 
 
 
 export default function BasicTable({ setTodoList, todoList, editTask }) {
-  const [isPressed, setisPressed] = useState(false);
 
-  let count = 1;
 
   function handleRemove(index) {
     const newList = todoList.filter((item, id) => id !== index);
@@ -30,7 +27,7 @@ export default function BasicTable({ setTodoList, todoList, editTask }) {
     marginTop: '-50px',
     borderRadius: '10px',
     overflowY: 'auto',
-    maxHeight: '250px',
+    maxHeight: '300px',
 
   };
 
@@ -48,23 +45,20 @@ export default function BasicTable({ setTodoList, todoList, editTask }) {
   };
 
 
-
   const handleCompleteChange = (index) => {
     if (index !== null) {
       const updatedTodoList = [...todoList];
-      if (isPressed === false) {
-        updatedTodoList[index].status = "Complete";
-        setTodoList(updatedTodoList);
-        setisPressed(true);
-      } else {
+
+      if (updatedTodoList[index].status === "Complete") {
         updatedTodoList[index].status = "Pending";
-        setTodoList(updatedTodoList);
-        setisPressed(false);
+      } else if (updatedTodoList[index].status === "Pending") {
+        updatedTodoList[index].status = "Complete";
       }
 
-
+      setTodoList(updatedTodoList);
     }
   };
+
 
   return (
     <>
@@ -89,21 +83,24 @@ export default function BasicTable({ setTodoList, todoList, editTask }) {
                   {index + 1}
                 </TableCell>
                 <TableCell align="right" style={tableBodyCell}>{row.task}</TableCell>
-                <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending' ? <span style={{ backgroundColor: "#DC381F", padding: "3px 6px", borderRadius: '5px', color: 'white' }}>Pending</span> :
+                <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending' ? 
+                   <span style={{ backgroundColor: "#DC381F", padding: "3px 6px", borderRadius: '5px', color: 'white' }}>Pending</span> :
                   <span style={{ backgroundColor: "green", padding: "3px 5px", borderRadius: '5px', color: 'white' }}>Complete</span>}
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>
-                  {row.status === "Pending" ? (<FontAwesomeIcon icon={faEdit} style={{ color: "#2196F3" }} onClick={() => editTask(index)} />) : (
+                  {row.status === "Pending" ? (<FontAwesomeIcon icon={faEdit} style={{ color: "#2196F3" }}
+                     onClick={() => editTask(index)} />) : (
                     <FontAwesomeIcon icon={faEdit} style={{ color: "#dddddd" }} />
                   )}
                 </TableCell>
                 <TableCell align="right" style={tableBodyCell}>
-                  <FontAwesomeIcon icon={faTrash} style={{ color: "#f50000", marginRight: '20px' }} onClick={() => handleRemove(index)} />
+                  <FontAwesomeIcon icon={faTrash} style={{ color: "#f50000", marginRight: '20px' }} 
+                                    onClick={() => handleRemove(index)} />
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>
-                  <Checkbox color="success" value={isPressed} onClick={() => handleCompleteChange(index)} style={{paddingRight:'20px'}} />
+                  <Checkbox color="success" onClick={() => handleCompleteChange(index)} style={{ paddingRight: '20px' }} />
                 </TableCell>
               </TableRow>
             ))}
