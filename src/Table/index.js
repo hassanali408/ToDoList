@@ -7,9 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
-import Checkbox from '@mui/material/Checkbox';
-
+import { faTrash, faEdit,faCheck } from '@fortawesome/free-solid-svg-icons';
 
 export default function BasicTable({ setTodoList, todoList, editTask, setCompleteList }) {
 
@@ -101,7 +99,7 @@ export default function BasicTable({ setTodoList, todoList, editTask, setComplet
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>
-                  <Checkbox color="success" onClick={() => handleCompleteChange(index)} style={{ paddingRight: '20px' }} />
+                  <FontAwesomeIcon icon={faCheck}  onClick={() => handleCompleteChange(index)} style={{paddingRight:'25px'}} />
                 </TableCell>
               </TableRow>
             ))}

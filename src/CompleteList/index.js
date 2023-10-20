@@ -5,7 +5,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
+import UndoIcon from '@mui/icons-material/Undo';
+
 
 const CompleteList = ({ completeList, setTodoList, todoList, setCompleteList }) => {
   const completedTasks = completeList.filter((task) => task.status === "Complete");
@@ -42,7 +43,7 @@ const CompleteList = ({ completeList, setTodoList, todoList, setCompleteList }) 
       if (taskToMove) {
         taskToMove.status = 'Pending';
         const updatedCompleteList = completeList.filter((task, i) => i !== index);
-        setTodoList([ ...todoList,taskToMove]);
+        setTodoList([...todoList, taskToMove]);
         setCompleteList(updatedCompleteList);
       }
     }
@@ -74,19 +75,8 @@ const CompleteList = ({ completeList, setTodoList, todoList, setCompleteList }) 
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>
-                  <Button
-                    variant="contained"
-                    style={{
-                      backgroundColor: '#ef5350',
-                      width: '5vw',
-                      height: '4vh',
-                      marginTop: '5px',
+                  <UndoIcon onClick={() => handleUndo(index)} />
 
-                    }}
-                    onClick={() => handleUndo(index)}
-                  >
-                    Undo
-                  </Button>
                 </TableCell>
 
 
