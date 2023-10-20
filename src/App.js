@@ -9,6 +9,8 @@ function App() {
   const [todoList, setTodoList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+  const [completeList, setCompleteList] = useState([]);
+
 
   const handleChange = (event) => {
     setaddTask(event.target.value);
@@ -31,33 +33,33 @@ function App() {
   function editTask(index) {
     setIsEditing(true);
     setEditIndex(index);
-    setaddTask(todoList[index].task); 
+    setaddTask(todoList[index].task);
   };
 
   return (
-    <div style={{display:'flex',flexDirection:'row', backgroundColor:'#f0f0f0'}}>
-    <div className="Main">
-      <div className="wrapper">
-        <div className="inner">
-          <h1 style={{ textAlign: 'center' }}>ToDo List</h1>
-        </div>
-        <AddList
-          inputValue={addTask}
-          handleChange={handleChange}
-          handleClick={handleAddTask}
-          isEditing={isEditing}
-        />
-        <List items={addTask} setTodoList={setTodoList} todoList={todoList} editTask={editTask} />
+    <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#f0f0f0' }}>
+      <div className="Main">
+        <div className="wrapper">
+          <div className="inner">
+            <h1 style={{ textAlign: 'center' }}>ToDo List</h1>
+          </div>
+          <AddList
+            inputValue={addTask}
+            handleChange={handleChange}
+            handleClick={handleAddTask}
+            isEditing={isEditing}
+          />
+          <List items={addTask} setTodoList={setTodoList} todoList={todoList} editTask={editTask} setCompleteList={setCompleteList} />
 
-        
+
+        </div>
+
       </div>
-   
-    </div>
-    <div className="right" style={{ marginLeft: '20px' }}>
+      <div className="right" style={{ marginLeft: '20px' }}>
         <div className="inner">
           <h1 style={{ textAlign: 'center' }}>Completed List</h1>
         </div>
-        <CompleteList todoList={todoList}/>
+        <CompleteList completeList={completeList} setTodoList={setTodoList} todoList={todoList} setCompleteList={setCompleteList} />
       </div>
     </div>
   );

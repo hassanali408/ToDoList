@@ -19,14 +19,14 @@ const AddList = ({ inputValue, handleClick, handleChange, isEditing }) => {
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <TextField id="standard-basic" placeholder={isEditing===false ? "Would you like to Add Something?" : "Update the name"} variant="standard"
+          <TextField id="standard-basic" placeholder={isEditing === false ? "Would you like to Add Something?" : "Update the name"} variant="standard"
             style={{ width: '350px', marginTop: '10px' }} value={inputValue} onChange={handleChange}
           />
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Button variant="contained"
-            style={{ backgroundColor: isEditing ? '#2196F3' : '#ef5350', width: '12vw',height:"6vh", marginTop: '10px' }}
+            style={{ backgroundColor: isEditing ? '#2196F3' : '#ef5350', width: '12vw', height: "6vh", marginTop: '10px' }}
             onClick={handleClick}
           >
             {isEditing ? 'Update' : 'Add'}

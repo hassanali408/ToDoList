@@ -11,7 +11,7 @@ import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import Checkbox from '@mui/material/Checkbox';
 
 
-export default function BasicTable({ setTodoList, todoList, editTask }) {
+export default function BasicTable({ setTodoList, todoList, editTask, setCompleteList }) {
 
 
   function handleRemove(index) {
@@ -47,16 +47,18 @@ export default function BasicTable({ setTodoList, todoList, editTask }) {
   const handleCompleteChange = (index) => {
     if (index !== null) {
       const updatedTodoList = [...todoList];
-      if (updatedTodoList[index].status === "Complete") {
-        updatedTodoList[index].status = "Pending";
-      } else if (updatedTodoList[index].status === "Pending") {
+      if (updatedTodoList[index].status === "Pending") {
         updatedTodoList[index].status = "Complete";
-  
-      }
+        setTodoList(updatedTodoList);
+        const taskToMove = updatedTodoList[index];
+        const basicTableList = updatedTodoList.filter((task, i) => i !== index);
+        setTodoList(basicTableList);
 
-      setTodoList(updatedTodoList);
+        setCompleteList((prevCompleteList) => [...prevCompleteList, taskToMove]);
+      }
     }
   };
+
 
 
   return (
@@ -82,20 +84,20 @@ export default function BasicTable({ setTodoList, todoList, editTask }) {
                   {index + 1}
                 </TableCell>
                 <TableCell align="right" style={tableBodyCell}>{row.task}</TableCell>
-                <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending' ? 
-                   <span style={{ backgroundColor: "#DC381F", padding: "3px 6px", borderRadius: '5px', color: 'white' }}>Pending</span> :
+                <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending' ?
+                  <span style={{ backgroundColor: "#DC381F", padding: "3px 6px", borderRadius: '5px', color: 'white' }}>Pending</span> :
                   <span style={{ backgroundColor: "green", padding: "3px 5px", borderRadius: '5px', color: 'white' }}>Complete</span>}
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>
                   {row.status === "Pending" ? (<FontAwesomeIcon icon={faEdit} style={{ color: "#2196F3" }}
-                     onClick={() => editTask(index)} />) : (
+                    onClick={() => editTask(index)} />) : (
                     <FontAwesomeIcon icon={faEdit} style={{ color: "#dddddd" }} />
                   )}
                 </TableCell>
                 <TableCell align="right" style={tableBodyCell}>
-                  <FontAwesomeIcon icon={faTrash} style={{ color: "#f50000", marginRight: '20px' }} 
-                                    onClick={() => handleRemove(index)} />
+                  <FontAwesomeIcon icon={faTrash} style={{ color: "#f50000", marginRight: '20px' }}
+                    onClick={() => handleRemove(index)} />
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>

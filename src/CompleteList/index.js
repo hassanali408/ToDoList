@@ -5,38 +5,52 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { Button } from '@mui/material';
 
-const CompleteList = ({todoList}) => {
-    const tableContainerStyle = {
-        width: "80%",
-        maxWidth: "800px",
-        margin: "0 auto",
-        marginTop: '14%',
-        borderRadius: '10px',
-        overflowY: 'auto',
-        maxHeight: '300px',
-    
-      };
-    
-      const tableStyle = {
-        width: '100%',
-      };
-    
-      const tableHeaderCell = {
-        fontWeight: "bold",
-        backgroundColor: "#f0f0f0",
-      };
-    
-      const tableBodyCell = {
-        borderBottom: "1px solid #ccc",
-      };
+const CompleteList = ({ completeList, setTodoList, todoList, setCompleteList }) => {
+  const completedTasks = completeList.filter((task) => task.status === "Complete");
 
 
-    return ( 
+  const tableContainerStyle = {
+    width: "80%",
+    maxWidth: "800px",
+    margin: "0 auto",
+    marginTop: '14%',
+    borderRadius: '10px',
+    overflowY: 'auto',
+    maxHeight: '300px',
+
+  };
+
+  const tableStyle = {
+    width: '100%',
+  };
+
+  const tableHeaderCell = {
+    fontWeight: "bold",
+    backgroundColor: "#f0f0f0",
+  };
+
+  const tableBodyCell = {
+    borderBottom: "1px solid #ccc",
+  };
+
+  const handleUndo = (index) => {
+    if (index !== null) {
+      const taskToMove = completeList.find((task, i) => i === index);
+
+      if (taskToMove) {
+        taskToMove.status = 'Pending';
+        const updatedCompleteList = completeList.filter((task, i) => i !== index);
+        setTodoList([ ...todoList,taskToMove]);
+        setCompleteList(updatedCompleteList);
+      }
+    }
+  };
+
+  return (
     <>
-       <TableContainer component={Paper} sx={tableContainerStyle}>
+      <TableContainer component={Paper} sx={tableContainerStyle}>
         <h2 style={{ paddingLeft: '20px', paddingTop: '10px', paddingBottom: '10px' }}>Task Completed</h2>
         <Table sx={tableStyle} aria-label="simple table">
           <TableHead>
@@ -48,22 +62,36 @@ const CompleteList = ({todoList}) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {todoList.map((row, index) => (
+            {completedTasks.map((row, index) => (
               <TableRow key={index}>
                 <TableCell component="th" scope="row" style={tableBodyCell}>
                   {index + 1}
                 </TableCell>
                 <TableCell align="right" style={tableBodyCell}>{row.task}</TableCell>
-                <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending' ? 
-                   <span style={{ backgroundColor: "#DC381F", padding: "3px 6px", borderRadius: '5px', color: 'white' }}>Pending</span> :
+                <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending' ?
+                  <span style={{ backgroundColor: "#DC381F", padding: "3px 6px", borderRadius: '5px', color: 'white' }}>Pending</span> :
                   <span style={{ backgroundColor: "green", padding: "3px 5px", borderRadius: '5px', color: 'white' }}>Complete</span>}
                 </TableCell>
 
-           
-             
-             
+                <TableCell align="right" style={tableBodyCell}>
+                  <Button
+                    variant="contained"
+                    style={{
+                      backgroundColor: '#ef5350',
+                      width: '5vw',
+                      height: '4vh',
+                      marginTop: '5px',
 
-            
+                    }}
+                    onClick={() => handleUndo(index)}
+                  >
+                    Undo
+                  </Button>
+                </TableCell>
+
+
+
+
               </TableRow>
             ))}
 
@@ -71,10 +99,10 @@ const CompleteList = ({todoList}) => {
         </Table>
       </TableContainer>
 
-    </> 
-    );
+    </>
+  );
 
 }
- 
+
 
 export default CompleteList;
