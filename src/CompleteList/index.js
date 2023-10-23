@@ -9,8 +9,6 @@ import UndoIcon from '@mui/icons-material/Undo';
 
 
 const CompleteList = ({ completeList, setTodoList, todoList, setCompleteList }) => {
-  const completedTasks = completeList.filter((task) => task.status === "Complete");
-
 
   const tableContainerStyle = {
     width: "80%",
@@ -63,12 +61,14 @@ const CompleteList = ({ completeList, setTodoList, todoList, setCompleteList }) 
             </TableRow>
           </TableHead>
           <TableBody>
-            {completedTasks.map((row, index) => (
+            {completeList.map((row, index) => (
               <TableRow key={index}>
                 <TableCell component="th" scope="row" style={tableBodyCell}>
                   {index + 1}
                 </TableCell>
+
                 <TableCell align="right" style={tableBodyCell}>{row.task}</TableCell>
+
                 <TableCell align="right" style={tableBodyCell}>{row.status === 'Pending' ?
                   <span style={{ backgroundColor: "#DC381F", padding: "3px 6px", borderRadius: '5px', color: 'white' }}>Pending</span> :
                   <span style={{ backgroundColor: "green", padding: "3px 5px", borderRadius: '5px', color: 'white' }}>Complete</span>}
@@ -78,9 +78,6 @@ const CompleteList = ({ completeList, setTodoList, todoList, setCompleteList }) 
                   <UndoIcon onClick={() => handleUndo(index)} />
 
                 </TableCell>
-
-
-
 
               </TableRow>
             ))}

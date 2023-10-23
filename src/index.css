@@ -1,57 +1,41 @@
-
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-.Main{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
-  width: 50vw;
-  padding-left: 10px;
-}
 
-.wrapper {
-  width: 50vw;
-  height: 90vh;
-  background-color: #f7f7ff; 
-  border-bottom-left-radius:10px ;
-  border-bottom-right-radius: 10px;
-}
-
-.right {
+.left-wrapper {
   width: 45vw;
   height: 90vh;
-  background-color: #f7f7ff; 
-  border-bottom-left-radius:10px ;
+  background-color: #f7f7ff;
+  border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   margin-top: 30px;
-  
+
 }
 
-.inner{
-  background: rgb(2,0,36);
+.right-wrapper {
+  width: 45vw;
+  height: 90vh;
+  background-color: #f7f7ff;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-top: 30px;
+
+}
+
+.inner {
+  background: rgb(2, 0, 36);
   height: 120px;
   color: #f0f0f0;
-  background: linear-gradient(90deg, rgb(95,70,134) 0%, rgb(124, 70, 155) 49%, rgb(81,97,148) 100%);
-  border-top-left-radius:10px ;
+  background: linear-gradient(90deg, rgb(95, 70, 134) 0%, rgb(124, 70, 155) 49%, rgb(81, 97, 148) 100%);
+  border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 
 }
 
-
-.AddList {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.addlist {
   position: relative;
-  top: -15px; 
-  transform: translateY(-50%); 
-
+  top: -12%;
+  left: 10%;
 }
-
-

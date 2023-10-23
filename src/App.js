@@ -15,6 +15,7 @@ function App() {
   const handleChange = (event) => {
     setaddTask(event.target.value);
   };
+
   const handleAddTask = () => {
     if (addTask.trim() !== '') {
       if (isEditing && editIndex !== null) {
@@ -37,31 +38,33 @@ function App() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', backgroundColor: '#f0f0f0' }}>
-      <div className="Main">
-        <div className="wrapper">
-          <div className="inner">
-            <h1 style={{ textAlign: 'center' }}>ToDo List</h1>
-          </div>
-          <AddList
-            inputValue={addTask}
-            handleChange={handleChange}
-            handleClick={handleAddTask}
-            isEditing={isEditing}
-          />
-          <List items={addTask} setTodoList={setTodoList} todoList={todoList} editTask={editTask} setCompleteList={setCompleteList} />
-
-
+    <div style={{ display: 'flex', backgroundColor: '#f0f0f0', height: "100vh", justifyContent: 'center' }}>
+      <div className="left-wrapper">
+        <div className="inner">
+          <h1 style={{ textAlign: 'center' }}>ToDo List</h1>
         </div>
+        <div className='addlist'>
+          <AddList inputValue={addTask} handleChange={handleChange}
+            handleClick={handleAddTask} isEditing={isEditing}
+          />
+        </div>
+        <List items={addTask} setTodoList={setTodoList}
+          todoList={todoList} editTask={editTask} setCompleteList={setCompleteList} completeList={completeList}/>
 
       </div>
-      <div className="right" style={{ marginLeft: '20px' }}>
+
+      <div className="right-wrapper" style={{ marginLeft: '20px' }}>
         <div className="inner">
           <h1 style={{ textAlign: 'center' }}>Completed List</h1>
+
         </div>
-        <CompleteList completeList={completeList} setTodoList={setTodoList} todoList={todoList} setCompleteList={setCompleteList} />
+
+        <CompleteList completeList={completeList} setTodoList={setTodoList}
+          todoList={todoList} setCompleteList={setCompleteList} />
       </div>
     </div>
+
+
   );
 }
 

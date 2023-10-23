@@ -7,10 +7,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit,faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit, faCheck } from '@fortawesome/free-solid-svg-icons';
 
-export default function BasicTable({ setTodoList, todoList, editTask, setCompleteList }) {
-
+export default function BasicTable({ setTodoList, todoList, editTask, setCompleteList,completeList }) {
 
   function handleRemove(index) {
     const newList = todoList.filter((item, id) => id !== index);
@@ -49,15 +48,13 @@ export default function BasicTable({ setTodoList, todoList, editTask, setComplet
         updatedTodoList[index].status = "Complete";
         setTodoList(updatedTodoList);
         const taskToMove = updatedTodoList[index];
-        const basicTableList = updatedTodoList.filter((task, i) => i !== index);
-        setTodoList(basicTableList);
+        const OriginalTable = updatedTodoList.filter((task, i) => i !== index);
+        setTodoList(OriginalTable);
 
-        setCompleteList((prevCompleteList) => [...prevCompleteList, taskToMove]);
+        setCompleteList([...completeList, taskToMove]);
       }
     }
   };
-
-
 
   return (
     <>
@@ -99,7 +96,7 @@ export default function BasicTable({ setTodoList, todoList, editTask, setComplet
                 </TableCell>
 
                 <TableCell align="right" style={tableBodyCell}>
-                  <FontAwesomeIcon icon={faCheck}  onClick={() => handleCompleteChange(index)} style={{paddingRight:'25px'}} />
+                  <FontAwesomeIcon icon={faCheck} onClick={() => handleCompleteChange(index)} style={{ paddingRight: '25px' }} />
                 </TableCell>
               </TableRow>
             ))}
